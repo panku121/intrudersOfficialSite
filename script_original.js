@@ -1,27 +1,59 @@
-/* ================= FIREBASE CDN IMPORT ================= */
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js';
-import { getDatabase, ref, onValue } from 'https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js';
+// const API_URL =
+//   'https://royalintruders-default-rtdb.firebaseio.com/players.json';
 
-/* ================= FIREBASE CONFIG ================= */
-/* ⚠️ Replace with your real config if needed */
-const firebaseConfig = {
-  databaseURL: "https://royalintruders-default-rtdb.firebaseio.com"
-};
+// const container = document.getElementById('playersContainer');
+// const loader = document.getElementById('loader');
 
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// fetch(API_URL)
+//   .then(res => res.json())
+//   .then(data => {
+//     loader.style.display = 'none';
 
-/* ================= DOM ELEMENTS ================= */
+//     if (!data) {
+//       container.innerHTML = '<p>No players found</p>';
+//       return;
+//     }
+
+//     Object.keys(data).forEach(key => {
+//       const player = data[key];
+
+//       const firstLetter = player.playerName
+//         ? player.playerName.charAt(0).toUpperCase()
+//         : '?';
+
+//       const card = document.createElement('div');
+//       card.className = 'player-card';
+
+//       card.innerHTML = `
+//         <div class="avatar">${firstLetter}</div>
+//         <div class="player-name">${player.playerName}</div>
+//         <div class="player-info">🎂 DOB: ${player.dateOfBirth}</div>
+//         <div class="player-info">👕 Size: ${player.tShirtSize}</div>
+//         <div class="player-info">🔢 Number: ${player.tShirtNumber}</div>
+//         <div class="badge">Royal Intruders</div>
+//       `;
+
+//       container.appendChild(card);
+//     });
+//   })
+//   .catch(err => {
+//     loader.innerText = 'Failed to load players 😢';
+//     console.error(err);
+//   });
+
+// const logoUrl = "https://github.com/panku121/intrudersOfficialSite/blob/main/royalIntrudersNewLogo.png"
+const API_URL =
+  'https://royalintruders-default-rtdb.firebaseio.com/players.json';
+
 const container = document.getElementById('playersContainer');
 const loader = document.getElementById('loader');
 const searchInput = document.getElementById('searchInput');
 
 let playersData = [];
 
-/* ================= DATE FORMAT ================= */
+/* ===== DATE FORMAT ===== */
 function formatDOB(dateStr) {
   if (!dateStr) return 'N/A';
-
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-GB', {
     day: 'numeric',
@@ -29,7 +61,7 @@ function formatDOB(dateStr) {
   });
 }
 
-/* ================= ROLE → COLOR CLASS ================= */
+/* ===== ROLE → COLOR CLASS ===== */
 function getRoleClass(role = '') {
   role = role.toLowerCase();
 
@@ -41,10 +73,10 @@ function getRoleClass(role = '') {
   return 'default-role';
 }
 
-/* ================= ROLE TEXT FORMAT ================= */
 function formatRoleText(role = '') {
   if (!role) return 'Player';
 
+  // Special case for Opener Strike Batsman
   if (
     role.includes('Opener') &&
     role.includes('Strike rate') &&
@@ -53,10 +85,12 @@ function formatRoleText(role = '') {
     return '🏏 Opener Strike Batsman | SR >125';
   }
 
+  // Default return
   return `🏏 ${role}`;
 }
 
-/* ================= RENDER PLAYERS ================= */
+
+/* ===== RENDER PLAYERS ===== */
 function renderPlayers(players) {
   container.innerHTML = '';
 
@@ -97,22 +131,23 @@ function renderPlayers(players) {
   });
 }
 
-/* ================= REAL-TIME DATA LOAD ================= */
-const playersRef = ref(database, 'players');
+/* ===== FETCH DATA ===== */
+fetch(API_URL)
+  .then(res => res.json())
+  .then(data => {
+    loader.style.display = 'none';
 
-onValue(playersRef, snapshot => {
-  loader.style.display = 'none';
+    if (!data) return;
 
-  if (!snapshot.exists()) {
-    renderPlayers([]);
-    return;
-  }
+    playersData = Object.values(data);
+    renderPlayers(playersData);
+  })
+  .catch(err => {
+    loader.innerText = 'Failed to load players 😢';
+    console.error(err);
+  });
 
-  playersData = Object.values(snapshot.val());
-  renderPlayers(playersData);
-});
-
-/* ================= SEARCH FILTER ================= */
+/* ===== SEARCH FILTER ===== */
 searchInput.addEventListener('input', e => {
   const value = e.target.value.toLowerCase();
 
@@ -124,10 +159,11 @@ searchInput.addEventListener('input', e => {
   renderPlayers(filtered);
 });
 
-/* ================= NAVBAR TOGGLE ================= */
+/* ===== NAVBAR TOGGLE ===== */
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 
 navToggle.addEventListener('click', () => {
   navMenu.classList.toggle('show');
 });
+
