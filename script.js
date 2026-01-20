@@ -8,6 +8,8 @@ const firebaseConfig = {
   databaseURL: "https://royalintruders-default-rtdb.firebaseio.com"
 };
 
+const gtavLink = 'https://www.gtavco.com'
+
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
@@ -55,6 +57,8 @@ function formatRoleText(role = '') {
 
   return `🏏 ${role}`;
 }
+
+
 
 /* ================= RENDER PLAYERS ================= */
 function renderPlayers(players) {
@@ -110,6 +114,8 @@ onValue(playersRef, snapshot => {
 
   playersData = Object.values(snapshot.val());
   renderPlayers(playersData);
+
+  document.getElementById('teamCount').innerText = playersData.length;
 });
 
 /* ================= SEARCH FILTER ================= */
@@ -131,3 +137,5 @@ const navMenu = document.getElementById('navMenu');
 navToggle.addEventListener('click', () => {
   navMenu.classList.toggle('show');
 });
+
+
