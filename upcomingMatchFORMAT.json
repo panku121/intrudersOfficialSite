@@ -1,0 +1,25 @@
+{ 
+    "nextMatch": [
+        {
+            "date": "25/01/2026",
+            "day": "Sunday",
+            "time": "10:00 AM",
+            "type": "Friendly",
+            "ground": "City Forest Ground"
+        },
+        {
+            "date": "26/01/2026",
+            "day": "Monday",
+            "time": "10:15 AM",
+            "type": "Friendly",
+            "ground": "City Forest Ground"
+        },
+        {
+            "date": "28/01/2026",
+            "day": "Wednesday",
+            "time": "07:00 AM",
+            "type": "Warm Up",
+            "ground": "NSS Ground"
+        }
+    ]
+}
