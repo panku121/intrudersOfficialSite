@@ -162,6 +162,7 @@ body {
 
 /* Player Card */
 .player-card {
+  position: relative;
   background: linear-gradient(160deg, #0b1d33, #000);
   border-radius: 20px;
   padding: 20px;
@@ -173,6 +174,77 @@ body {
   transform: translateY(-6px);
   box-shadow: 0 20px 45px rgba(79, 163, 255, 0.4);
 }
+
+.upcoming-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: #ff0000;
+  background: yellow;
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.8),
+    0 0 25px rgba(213, 248, 15, 0.6);
+  animation: pulseGlow 2s infinite ease-in-out;
+  overflow: hidden;
+}
+
+/* ✨ SHINE EFFECT */
+.upcoming-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  animation: shineMove 2.8s infinite;
+}
+
+/* 🌟 PULSE GLOW */
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow:
+      0 0 10px rgba(34, 197, 94, 0.6),
+      0 0 20px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow:
+      0 0 20px rgba(34, 197, 94, 0.9),
+      0 0 40px rgba(34, 197, 94, 0.8);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 10px rgba(34, 197, 94, 0.6),
+      0 0 20px rgba(34, 197, 94, 0.4);
+  }
+}
+
+/* ✨ SHINE MOVE */
+@keyframes shineMove {
+  0% {
+    left: -60%;
+  }
+  60% {
+    left: 120%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+
+
 
 .avatar {
   width: 70px;

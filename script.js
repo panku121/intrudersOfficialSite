@@ -31,6 +31,55 @@ function formatDOB(dateStr) {
   });
 }
 
+function isUpcomingBirthday(dob) {
+  if (!dob) return false;
+
+  const today = new Date();
+  const birthDate = new Date(dob);
+
+  const currentYear = today.getFullYear();
+
+  let nextBirthday = new Date(
+    currentYear,
+    birthDate.getMonth(),
+    birthDate.getDate()
+  );
+
+  // If birthday already passed this year
+  if (nextBirthday < today) {
+    nextBirthday.setFullYear(currentYear + 1);
+  }
+
+  const diffDays = Math.ceil(
+    (nextBirthday - today) / (1000 * 60 * 60 * 24)
+  );
+
+  return diffDays >= 0 && diffDays <= 15;
+}
+
+/* ================= DAYS LEFT FOR BIRTHDAY ================= */
+function daysUntilBirthday(dob) {
+  if (!dob) return Infinity;
+
+  const today = new Date();
+  const birthDate = new Date(dob);
+  const year = today.getFullYear();
+
+  let nextBirthday = new Date(
+    year,
+    birthDate.getMonth(),
+    birthDate.getDate()
+  );
+
+  if (nextBirthday < today) {
+    nextBirthday.setFullYear(year + 1);
+  }
+
+  return Math.ceil(
+    (nextBirthday - today) / (1000 * 60 * 60 * 24)
+  );
+}
+
 /* ================= ROLE → COLOR CLASS ================= */
 function getRoleClass(role = '') {
   role = role.toLowerCase();
@@ -76,26 +125,30 @@ function renderPlayers(players) {
 
     const roleClass = getRoleClass(player.playerRole);
 
+    const upcoming = isUpcomingBirthday(player.dateOfBirth);
+
     const card = document.createElement('div');
     card.className = 'player-card';
 
     card.innerHTML = `
-      <div class="avatar">${firstLetter}</div>
+    ${upcoming ? `<div class="upcoming-badge">🎉 Upcoming Birthday</div>` : ''}
 
-      <div class="player-name">${player.playerName || 'Unknown'}</div>
+    <div class="avatar">${firstLetter}</div>
 
-      <div class="player-info">
-        🎂 DOB: ${formatDOB(player.dateOfBirth)}
-      </div>
+    <div class="player-name">${player.playerName || 'Unknown'}</div>
 
-      <div class="player-info">
-        👕 T-Shirt No: ${player.tShirtNumber || 'N/A'}
-      </div>
+    <div class="player-info">
+      🎂 DOB: ${formatDOB(player.dateOfBirth)}
+    </div>
 
-      <span class="style-badge ${roleClass}">
-        ${formatRoleText(player.playerRole)}
-      </span>
-    `;
+    <div class="player-info">
+      👕 T-Shirt No: ${player.tShirtNumber || 'N/A'}
+    </div>
+
+    <span class="style-badge ${roleClass}">
+      ${formatRoleText(player.playerRole)}
+    </span>
+  `;
 
     container.appendChild(card);
   });
@@ -113,6 +166,25 @@ onValue(playersRef, snapshot => {
   }
 
   playersData = Object.values(snapshot.val());
+  
+  playersData.sort((a, b) => {
+    const aDays = daysUntilBirthday(a.dateOfBirth);
+    const bDays = daysUntilBirthday(b.dateOfBirth);
+
+    const aUpcoming = aDays <= 15;
+    const bUpcoming = bDays <= 15;
+
+    // 1️⃣ Upcoming birthdays first
+    if (aUpcoming && !bUpcoming) return -1;
+    if (!aUpcoming && bUpcoming) return 1;
+
+    // 2️⃣ Both upcoming → nearest birthday first
+    if (aUpcoming && bUpcoming) return aDays - bDays;
+
+    // 3️⃣ Both not upcoming → keep normal order
+    return 0;
+  });
+
   renderPlayers(playersData);
 
   document.getElementById('teamCount').innerText = playersData.length;
