@@ -1,84 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Royal Intruders™ | Official Cricket Team Website</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+	<meta charset="UTF-8" />
+	<title>Royal Intruders™ | Official Cricket Team Website</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <img src="royalIntrudersNewLogo.png" alt="Royal Intruders">
-        <span>Royal Intruders</span>
-      </div>
+	<!-- ===== NAVBAR ===== -->
+	<nav class="navbar">
+		<div class="nav-container">
+			<div class="nav-logo">
+				<img src="royalIntrudersNewLogo.png" alt="Royal Intruders">
+				<span>Royal Intruders</span>
+			</div>
 
-      <div class="nav-toggle" id="navToggle">☰</div>
+			<div class="nav-toggle" id="navToggle">☰</div>
 
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Team Gallery</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li class="highlight">
-          <a href="https://panku121.github.io/welcomeIntruders/" target="_blank">
-            ➕ Add Yourself in Team
-          </a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+			<ul class="nav-menu" id="navMenu">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Team Gallery</a></li>
+				<li><a href="#">Contact Us</a></li>
+				<li class="highlight">
+					<a href="https://panku121.github.io/welcomeIntruders/" target="_blank">
+						➕ Add Yourself in Team
+					</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 
-  <!-- ===== HEADER ===== -->
-  <header class="team-header">
-    <div class="header-wrapper">
-      <div class="header-card team-info">
-        <div class="team-strength">
-          👥 Team Strength: <span id="teamCount">0</span>
-        </div>
+	<!-- ===== HEADER ===== -->
+	<header class="team-header">
+		<div class="header-wrapper">
+			<div class="header-card team-info">
+				<div class="team-strength">
+					👥 Team Strength: <span id="teamCount">0</span>
+				</div>
 
-        <img src="royalIntrudersNewLogo.png" class="team-logo">
-        <h1 class="team-name">Royal Intruders</h1>
-        <p class="team-location">📍 Ghaziabad</p>
+				<img src="royalIntrudersNewLogo.png" class="team-logo">
+				<h1 class="team-name">Royal Intruders</h1>
+				<p class="team-location">📍 Ghaziabad</p>
 
-        <div class="role captain">👑 Captain <b>Pankaj Kumar</b></div>
-        <div class="role vice">🥈 Vice Captain <b>Dev Pant</b></div>
+				<div class="role captain">👑 Captain <b>Pankaj Kumar</b></div>
+				<div class="role vice">🥈 Vice Captain <b>Dev Pant</b></div>
 
-        <div class="sponsor" onclick="window.open('https://www.gtavco.com','_blank')">
-          Sponsored by <b>GTAV & CO</b>
-        </div>
-      </div>
+				<div class="sponsor" onclick="window.open('https://www.gtavco.com','_blank')">
+					Sponsored by <b>GTAV & CO</b>
+				</div>
+			</div>
 
-      <div class="header-card qr-card">
-        <img src="intruders_QR.jpeg" class="qr-image">
-        <p class="qr-title">Scan to Join Team</p>
-        <p class="qr-sub">Royal Intruders – CricHeroes</p>
-        <div class="qr-id">ID : 836233</div>
-      </div>
-    </div>
-  </header>
+			<div class="header-card qr-card">
+				<img src="intruders_QR.jpeg" class="qr-image">
+				<p class="qr-title">Scan to Join Team</p>
+				<p class="qr-sub">Royal Intruders – CricHeroes</p>
+				<div class="qr-id">ID : 836233</div>
+			</div>
+		</div>
+	</header>
 
-  <!-- ===== NEXT MATCHES ===== -->
-  <section class="ri-next-matches">
-    <h2 class="ri-next-title upcoming-match blink-match">🔥 Upcoming Matches</h2>
-    <div class="ri-next-grid" id="nextMatchesContainer"></div>
-  </section>
+	<!-- ===== NEXT MATCHES ===== -->
+	<section class="ri-next-matches">
+		<h2 class="ri-next-title upcoming-match blink-match">🔥 Upcoming Matches</h2>
+		<div class="ri-next-grid" id="nextMatchesContainer"></div>
+	</section>
 
-  <!-- ===== PLAYERS ===== -->
-  <h2 class="players-title">🏏 Team Players</h2>
-  <div class="search-wrapper">
-    <input id="searchInput" placeholder="🔍 Search player..." />
-  </div>
+	<div class="ri-birthday-marquee">
+		🎉 Royal Intruders wishes you a very <span>Happy Birthday Swatantra!!</span> 🎂🔥
+	</div>
 
-  <div id="loader" class="loader">Loading players...</div>
-  <div class="players-container" id="playersContainer"></div>
+	<!-- ===== PLAYERS ===== -->
+	<h2 class="players-title">🏏 Team Players</h2>
+	<div class="search-wrapper">
+		<input id="searchInput" placeholder="🔍 Search player..." />
+	</div>
 
-  
+	<div id="loader" class="loader">Loading players...</div>
+	<div class="players-container" id="playersContainer"></div>
 
-  <script type="module" src="script.js"></script>
+
+
+	<script type="module" src="script.js"></script>
 </body>
+
 </html>
