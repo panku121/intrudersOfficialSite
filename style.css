@@ -588,45 +588,39 @@ body {
 }
 
 .ri-birthday-marquee {
-	will-change: transform;
-	transform: translate3d(0, 0, 0);
-	backface-visibility: hidden;
-	-webkit-font-smoothing: antialiased;
-
-	width: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-	font-weight: 800;
-	font-size: clamp(16px, 3vw, 26px);
-	padding: 10px 0;
-
-	/* Clean premium color */
-	color: #dbf306;
-
-	animation: ri-move-left 25s linear infinite;
-
-	/* SHARP glow (no blur) */
-	text-shadow:
-		0 0 2px rgba(0, 234, 255, .9),
-		0 0 6px rgba(0, 180, 255, .7),
-		0 0 12px rgba(0, 120, 255, .6);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
 }
 
-.ri-birthday-marquee span {
-	color: #ffffff;
-	font-weight: 700;
-	text-shadow:
-		0 0 3px rgba(255, 255, 255, .9),
-		0 0 8px rgba(0, 234, 255, .6);
+.ri-track {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+
+    font-weight: 800;
+    font-size: clamp(16px, 3vw, 26px);
+    color: #00eaff;
+
+    animation: ri-move-left 18s linear infinite;
+
+    /* Smooth rendering */
+    will-change: transform;
+    transform: translate3d(0,0,0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+
+    text-shadow:
+      0 0 2px rgba(0,234,255,.9),
+      0 0 6px rgba(0,180,255,.7);
 }
 
-/* Right to Left */
+.ri-track b {
+    color: #ffffff;
+}
+
+/* REAL smooth + full text visible */
 @keyframes ri-move-left {
-	0% {
-		transform: translateX(100%);
-	}
-
-	100% {
-		transform: translateX(-100%);
-	}
+    from { transform: translate3d(0,0,0); }
+    to   { transform: translate3d(-100%,0,0); }
 }
